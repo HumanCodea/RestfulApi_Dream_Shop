@@ -12,13 +12,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Product {
 
@@ -28,6 +26,9 @@ public class Product {
 
     @NotBlank(message = "This brand's product can be not blank")
     private String productBrand;
+
+    @NotBlank(message = "This name's product can be not blank")
+    private String productName;
 
     private BigDecimal productPrices;
 
@@ -44,4 +45,15 @@ public class Product {
     //các thao tác tương ứng sẽ được áp dụng trên cơ sở dữ liệu nhờ cascade và orphanRemoval.
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
+
+    public Product(String productBrand, String productName, BigDecimal productPrices, int inventory, String productDescription,
+            Category category) {
+        this.productBrand = productBrand;
+        this.productName = productName;
+        this.productPrices = productPrices;
+        this.inventory = inventory;
+        this.productDescription = productDescription;
+        this.category = category;
+    }
+
 }
