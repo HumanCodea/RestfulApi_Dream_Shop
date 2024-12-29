@@ -25,7 +25,7 @@ public class CategoryService implements ICategoryService{
 
     @Override
     public Category getCategoryByName(String categoryName) {
-        return categoryRepository.findByName(categoryName);
+        return categoryRepository.findByNameCategory(categoryName);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CategoryService implements ICategoryService{
     @Override
     public Category addCategory(Category category) {
         return Optional.of(category)
-        .filter(c -> !categoryRepository.existsByName(c.getNameCategory())) //Lọc ra những category mới để thêm vào cơ sở dữ liệu.
+        .filter(c -> !categoryRepository.existsByNameCategory(c.getNameCategory())) //Lọc ra những category mới để thêm vào cơ sở dữ liệu.
         .map(categoryRepository :: save)
         .orElseThrow(() -> new AlreadyExistsException(category.getNameCategory() + "already exists"));
     }

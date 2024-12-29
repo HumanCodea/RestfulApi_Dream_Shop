@@ -25,7 +25,7 @@ public class ProductService implements IProductService{
     @Override
     public Product addProduct(AddProductRequest product) {
 
-        Category category = Optional.ofNullable(categoryRepository.findByName(product.getCategory().getNameCategory()))
+        Category category = Optional.ofNullable(categoryRepository.findByNameCategory(product.getCategory().getNameCategory()))
                 .orElseGet(() -> {
                     Category newCategory = new Category(product.getCategory().getNameCategory());
                     return categoryRepository.save(newCategory);
@@ -79,7 +79,7 @@ public class ProductService implements IProductService{
         existingProduct.setInventory(request.getInventory());
         existingProduct.setProductDescription(request.getProductDescription());
         
-        Category category = categoryRepository.findByName(request.getCategory().getNameCategory());
+        Category category = categoryRepository.findByNameCategory(request.getCategory().getNameCategory());
         existingProduct.setCategory(category);
 
         return existingProduct;
@@ -93,17 +93,17 @@ public class ProductService implements IProductService{
 
     @Override
     public List<Product> getProductsByCategory(String category) {
-        return productRepository.findByCategoryName(category);
+        return productRepository.findByCategoryNameCategory(category);
     }
 
     @Override
     public List<Product> getProductsByBrand(String brand) {
-        return productRepository.findByBrand(brand);
+        return productRepository.findByProductBrand(brand);
     }
 
     @Override
     public List<Product> getProductsByCategoryAndBrand(String category, String brand) {
-        return productRepository.findByCategoryNameAndBrand(category, brand);
+        return productRepository.findByCategoryNameCategoryAndProductBrand(category, brand);
     }
 
     @Override
@@ -113,12 +113,12 @@ public class ProductService implements IProductService{
 
     @Override
     public List<Product> getProductsByBrandAndName(String productName, String brand) {
-        return productRepository.findByBrandAndProductName(brand, productName);
+        return productRepository.findByProductBrandAndProductName(brand, productName);
     }
 
     @Override
     public int countProductsByBrandAndName(String brand, String productName) {
-       return productRepository.countByBrandAndProductName(brand,productName);
+       return productRepository.countByProductBrandAndProductName(brand,productName);
     }
     
 }

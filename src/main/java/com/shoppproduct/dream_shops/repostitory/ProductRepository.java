@@ -10,15 +10,16 @@ import com.shoppproduct.dream_shops.model.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Integer>{
     
-    List<Product> findByCategoryName(String category);
+    List<Product> findByCategoryNameCategory(String category);
 
-    List<Product> findByBrand(String brand);
+    List<Product> findByProductBrand(String productBrand);
 
-    List<Product> findByCategoryNameAndBrand(String category, String brand);
+    List<Product> findByCategoryNameCategoryAndProductBrand(String category, String productBrand);
 
     List<Product> findByProductName(String productName);
 
-    List<Product> findByBrandAndProductName(String brand, String productName);
+    List<Product> findByProductBrandAndProductName(String productBrand, String productName);
 
-    int countByBrandAndProductName(String brand, String productName);
+    int countByProductBrandAndProductName(String productBrand, String productName);
+
 }
