@@ -60,10 +60,12 @@ public class ProductService implements IProductService{
                     () -> { throw new ProductNotFoundException("Product not found!");});
     }
 
+    // Sử dụng .map() khi bạn muốn xử lý các giá trị bên trong Optional một cách ngắn gọn, 
+    // đặc biệt là khi cần thực hiện nhiều bước xử lý liên tiếp
     @Override
     public Product updateProduct(UpdateProductRequest product, int productId) {
         return productRepository.findById(productId)
-                .map(existingProduct -> updateExistingProduct(existingProduct, product))
+                .map(existingProduct -> updateExistingProduct(existingProduct, product)) 
                 .map(productRepository :: save)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found!"));
 

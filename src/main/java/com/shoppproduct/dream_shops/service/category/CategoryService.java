@@ -36,7 +36,7 @@ public class CategoryService implements ICategoryService{
     @Override
     public Category addCategory(Category category) {
         return Optional.of(category)
-        .filter(c -> !categoryRepository.existsByName(c.getNameCategory()))
+        .filter(c -> !categoryRepository.existsByName(c.getNameCategory())) //Lọc ra những category mới để thêm vào cơ sở dữ liệu.
         .map(categoryRepository :: save)
         .orElseThrow(() -> new AlreadyExistsException(category.getNameCategory() + "already exists"));
     }
