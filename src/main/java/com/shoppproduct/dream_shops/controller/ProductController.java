@@ -53,7 +53,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/product/byId/{productId}")
     public ResponseEntity<ApiResponse> getProductById(@PathVariable int productId){
         try {
             Product product = productService.getProductById(productId);
@@ -87,7 +87,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/product/{categoryName}")
+    @GetMapping("/product/byCategoryName/{categoryName}")
     public ResponseEntity<ApiResponse> getProductsByCategoryName(@PathVariable String categoryName){
 
         try {
@@ -102,7 +102,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/product/{brand}")
+    @GetMapping("/product/byBrand/{brand}")
     public ResponseEntity<ApiResponse> getProductsByBrand(@PathVariable String brand){
 
         try {
@@ -117,7 +117,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/product/{productName}")
+    @GetMapping("/product/byName/{productName}")
     public ResponseEntity<ApiResponse> getProductsByName(@PathVariable String productName){
 
         try {

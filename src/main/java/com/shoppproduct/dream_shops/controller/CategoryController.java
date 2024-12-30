@@ -51,7 +51,7 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/category/{categoryId}")
+    @GetMapping("/category/id/{categoryId}")
     public ResponseEntity<ApiResponse> getCategoryById(@PathVariable int categoryId){
 
         try {
@@ -63,7 +63,7 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/category/{nameCategory}")
+    @GetMapping("/category/name/{nameCategory}")
     public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable String nameCategory){
 
         try {

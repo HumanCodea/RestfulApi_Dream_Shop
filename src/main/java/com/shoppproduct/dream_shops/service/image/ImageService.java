@@ -55,7 +55,7 @@ public class ImageService implements IImageService{
                 image.setImage(new SerialBlob(file.getBytes()));
                 image.setProduct(product);
 
-                String buildDownloadUrl = "api/v1/images/image/download";
+                String buildDownloadUrl = "api/v1/images/image/download/";
                 String downloadUrl = buildDownloadUrl + image.getImageId();
                 image.setDownloadUrl(downloadUrl);
                 
@@ -84,6 +84,7 @@ public class ImageService implements IImageService{
             image.setFileName(file.getOriginalFilename());
             image.setFileType(file.getContentType());
             image.setImage(new SerialBlob(file.getBytes()));
+            imageRepository.save(image);
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
