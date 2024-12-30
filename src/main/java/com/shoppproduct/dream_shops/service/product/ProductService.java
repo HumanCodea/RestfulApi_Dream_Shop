@@ -20,6 +20,7 @@ public class ProductService implements IProductService{
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @Override
