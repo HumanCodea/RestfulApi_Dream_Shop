@@ -2,7 +2,7 @@ package com.shoppproduct.dream_shops.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,8 +28,7 @@ public class Category {
     private String nameCategory;
 
     @OneToMany(mappedBy = "category")
-    // @JsonIgnore // kiểm soát quá trình tuần tự hóa dữ liệu.
-    @JsonManagedReference
+    @JsonIgnore // kiểm soát quá trình tuần tự hóa dữ liệu.
     private List<Product> products;
 
     public Category(String nameCategory) {
