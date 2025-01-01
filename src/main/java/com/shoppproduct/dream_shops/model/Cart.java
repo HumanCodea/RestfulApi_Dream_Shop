@@ -30,7 +30,7 @@ public class Cart {
 
     public void addCartItem(CartItem cartItem){
         this.cartItems.add(cartItem);
-        cartItem.setCart(null);
+        cartItem.setCart(this);
         updateTotalAmount();
     }
 
@@ -47,7 +47,7 @@ public class Cart {
                 return BigDecimal.ZERO;
             }
             return unitPrice.multiply(BigDecimal.valueOf(item.getQuantity()));
-        }).reduce(BigDecimal.ZERO, BigDecimal::add);
+        }).reduce(BigDecimal.ZERO, BigDecimal::add); // tính tổng hợp
     }
 
 }
