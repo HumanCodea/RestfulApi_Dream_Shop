@@ -45,5 +45,11 @@ public class CartService implements ICartService{
                 .map(CartItem :: getTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal :: add); // tổng giá trị của tất cả các items trong cart
     }
+
+    @Override
+    public int initializeNewCart(){
+        Cart newCart = new Cart();
+        return cartRepository.save(newCart).getId();
+    }
     
 }
