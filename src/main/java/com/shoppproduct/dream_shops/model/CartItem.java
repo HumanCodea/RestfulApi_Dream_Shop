@@ -12,10 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -33,9 +35,9 @@ public class CartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
+    @JsonIgnore
     private Cart cart;
 
     public void setTotalPrice() {

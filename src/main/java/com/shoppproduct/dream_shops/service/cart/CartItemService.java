@@ -1,7 +1,5 @@
 package com.shoppproduct.dream_shops.service.cart;
 
-import java.math.BigDecimal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,13 +41,13 @@ public class CartItemService implements ICartItemService{
             cartItem.setProduct(product);
             cartItem.setQuantity(quantity);
             cartItem.setUnitPrice(product.getProductPrices());
-            cart.addCartItem(cartItem);
             cartItem.setTotalPrice();
         } else {
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
             cartItem.setTotalPrice();
         }
-        
+
+        cart.addCartItem(cartItem);
         cartItemRepository.save(cartItem);
         cartRepository.save(cart);
 
@@ -75,9 +73,7 @@ public class CartItemService implements ICartItemService{
                     item.setUnitPrice(item.getProduct().getProductPrices());
                     item.setTotalPrice();
                 }); 
-
-            BigDecimal totalAmount = cart.getTotalAmount();
-            cart.setTotalAmount(totalAmount);
+            cart.updateTotalAmount();
             cartRepository.save(cart);
     }
     

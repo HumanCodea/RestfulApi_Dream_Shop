@@ -11,11 +11,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -31,9 +33,7 @@ public class Cart {
 
     public void addCartItem(CartItem cartItem){
         this.cartItems.add(cartItem);
-        if (cartItem.getCart() == null) {
-            cartItem.setCart(this); // Chỉ set Cart nếu CartItem chưa có Cart - đang lỗi
-        }
+        cartItem.setCart(this);
         updateTotalAmount();
     }
 
