@@ -3,11 +3,9 @@ package com.shoppproduct.dream_shops.repostitory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.shoppproduct.dream_shops.model.Cart;
+import com.shoppproduct.dream_shops.model.OrderItem;
 
 @Repository
-public interface CartRepository extends JpaRepository<Cart, Integer>{
+public interface OrderItemRepository extends JpaRepository<OrderItem, Long>{
     
-    Cart findByUserId(Long userId);
-
 }

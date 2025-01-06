@@ -20,22 +20,22 @@ public class OrderItem {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     private int quantity;
 
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "orders_id")
+    private Orders orders;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderItem(Order order, Product product, int quantity, BigDecimal price) {
-        this.order = order;
+    public OrderItem(Orders orders, Product product, int quantity, BigDecimal price) {
+        this.orders = orders;
         this.product = product;
         this.quantity = quantity;
         this.price = price;

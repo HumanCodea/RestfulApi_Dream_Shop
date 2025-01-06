@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.shoppproduct.dream_shops.model.Image;
+import com.shoppproduct.dream_shops.model.Orders;
 
 @Repository
-public interface ImageRepository extends JpaRepository<Image, Integer>{
-    
-    List<Image> findByProductProductId(int productId);
+public interface OrderRepository extends JpaRepository<Orders, Long>{
+
+    List<Orders> findByUserId(Long userId);
 
 }
