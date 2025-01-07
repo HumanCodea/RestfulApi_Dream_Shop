@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shoppproduct.dream_shops.enums.OrderStatus;
+import com.shoppproduct.dream_shops.exception.OrderNotFoundException;
 import com.shoppproduct.dream_shops.model.Cart;
 import com.shoppproduct.dream_shops.model.Orders;
 import com.shoppproduct.dream_shops.model.OrderItem;
@@ -82,6 +83,12 @@ public class OrderService implements IOrderService {
     @Override
     public List<Orders> getUserOrders(Long userId){
         return orderRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Orders getOrder(Long orderId) {
+        return orderRepository.findById(orderId)
+            .orElseThrow(() -> new OrderNotFoundException("Not found order with id = " + orderId));
     }
 
 }

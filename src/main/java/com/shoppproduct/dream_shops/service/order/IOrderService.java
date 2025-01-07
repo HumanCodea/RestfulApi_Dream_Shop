@@ -10,6 +10,7 @@ public interface IOrderService {
     
     Orders placeOrder(Long userId);
     BigDecimal calculateTotalAmount(List<OrderItem> orderItems);
+    Orders getOrder(Long orderId);
     List<Orders> getUserOrders(Long userId);
 
 }
