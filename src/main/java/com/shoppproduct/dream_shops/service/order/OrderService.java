@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shoppproduct.dream_shops.dto.OrderDTO;
 import com.shoppproduct.dream_shops.enums.OrderStatus;
 import com.shoppproduct.dream_shops.exception.OrderNotFoundException;
 import com.shoppproduct.dream_shops.model.Cart;
@@ -29,6 +31,9 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private ICartService iCartService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public Orders placeOrder(Long userId) {
@@ -81,14 +86,20 @@ public class OrderService implements IOrderService {
     }
     
     @Override
-    public List<Orders> getUserOrders(Long userId){
-        return orderRepository.findByUserId(userId);
+    public List<OrderDTO> getUserOrders(Long userId){
+        List<Orders> orders = orderRepository.findByUserId(userId);
+        return orders.stream().map(this :: convertToDTo).toList();
     }
 
     @Override
-    public Orders getOrder(Long orderId) {
+    public OrderDTO getOrder(Long orderId) {
         return orderRepository.findById(orderId)
+            .map(this :: convertToDTo)
             .orElseThrow(() -> new OrderNotFoundException("Not found order with id = " + orderId));
+    }
+
+    private OrderDTO convertToDTo(Orders orders){
+        return modelMapper.map(orders, OrderDTO.class);
     }
 
 }
