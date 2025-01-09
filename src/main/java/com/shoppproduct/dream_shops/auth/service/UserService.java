@@ -2,9 +2,11 @@ package com.shoppproduct.dream_shops.auth.service;
 
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shoppproduct.dream_shops.auth.dto.UserDTO;
 import com.shoppproduct.dream_shops.auth.model.User;
 import com.shoppproduct.dream_shops.auth.repository.UserRepository;
 import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
@@ -17,6 +19,9 @@ public class UserService implements IUserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public User getUserById(Long userId) {
@@ -54,4 +59,9 @@ public class UserService implements IUserService{
             .ifPresentOrElse(userRepository :: delete, () -> new UserNotFoundException("Not found user with id = " + userId));
     }
     
+    @Override
+    public UserDTO convertUserToDTO(User user){
+        return modelMapper.map(user, UserDTO.class);
+    }
+
 }
