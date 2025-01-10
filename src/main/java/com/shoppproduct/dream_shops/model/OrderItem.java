@@ -2,6 +2,8 @@ package com.shoppproduct.dream_shops.model;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +30,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "orders_id")
+    @JsonIgnore
     private Orders orders;
 
     @ManyToOne

@@ -13,5 +13,6 @@ public interface IOrderService {
     BigDecimal calculateTotalAmount(List<OrderItem> orderItems);
     OrderDTO getOrder(Long orderId);
     List<OrderDTO> getUserOrders(Long userId);
+    OrderDTO convertToDTo(Orders orders);
 
 }

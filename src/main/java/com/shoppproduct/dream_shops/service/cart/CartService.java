@@ -1,15 +1,24 @@
 package com.shoppproduct.dream_shops.service.cart;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shoppproduct.dream_shops.auth.model.User;
+import com.shoppproduct.dream_shops.dto.CartDTO;
+import com.shoppproduct.dream_shops.dto.CartItemDTO;
+import com.shoppproduct.dream_shops.dto.ProductDTO;
 import com.shoppproduct.dream_shops.exception.CartNotFoundException;
 import com.shoppproduct.dream_shops.model.Cart;
 import com.shoppproduct.dream_shops.model.CartItem;
 import com.shoppproduct.dream_shops.repostitory.CartItemRepository;
 import com.shoppproduct.dream_shops.repostitory.CartRepository;
+import com.shoppproduct.dream_shops.service.product.IProductService;
 
 @Service
 public class CartService implements ICartService{
@@ -19,6 +28,9 @@ public class CartService implements ICartService{
 
     @Autowired
     private CartItemRepository cartItemRepository;
+
+    @Autowired
+    private IProductService iProductService;
 
     @Override
     public Cart getCart(int id) {
@@ -44,14 +56,39 @@ public class CartService implements ICartService{
     }
 
     @Override
-    public int initializeNewCart(){
-        Cart newCart = new Cart();
-        return cartRepository.save(newCart).getId();
+    public Cart initializeNewCart(User user){
+        return Optional.ofNullable(getCartByUserId(user.getId()))
+            .orElseGet(() -> {
+                Cart cart = new Cart();
+                cart.setUser(user);
+                return cartRepository.save(cart);
+            });
     }
 
     @Override
     public Cart getCartByUserId(Long userId) {
         return cartRepository.findByUserId(userId);
+    }
+    
+    @Override
+    public CartDTO convertCartToDTO(Cart cart){
+        Set<CartItem> cartItems = cart.getCartItems();
+        List<CartItemDTO> cartItemDTOs = new ArrayList<>();
+        CartDTO cartDTO = new CartDTO();
+        for(CartItem c : cartItems){
+            CartItemDTO cartItemDTO = new CartItemDTO();
+            ProductDTO productDTO = iProductService.convertToDTO(c.getProduct());
+            cartItemDTO.setId(c.getId());
+            cartItemDTO.setQuantity(c.getQuantity());
+            cartItemDTO.setUnitPrice(c.getUnitPrice());
+            cartItemDTO.setTotalPrice(c.getTotalPrice());
+            cartItemDTO.setProductDTO(productDTO);
+            cartItemDTOs.add(cartItemDTO);
+        }
+        cartDTO.setId(cart.getId());
+        cartDTO.setTotalAmount(cart.getTotalAmount());
+        cartDTO.setCartItemDTOs(cartItemDTOs);
+        return cartDTO;
     }
     
 }

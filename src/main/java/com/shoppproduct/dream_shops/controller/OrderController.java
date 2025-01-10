@@ -30,7 +30,8 @@ public class OrderController {
 
         try {
             Orders order = iOrderService.placeOrder(userId);
-            return ResponseEntity.ok(new ApiResponse("Item order success", order));
+            OrderDTO orderDTO = iOrderService.convertToDTo(order);
+            return ResponseEntity.ok(new ApiResponse("Item order success", orderDTO));
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse("Error Occured!", e.getMessage()));
         }

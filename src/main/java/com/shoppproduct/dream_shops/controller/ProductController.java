@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppproduct.dream_shops.dto.ProductDTO;
+import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
 import com.shoppproduct.dream_shops.exception.ProductNotFoundException;
 import com.shoppproduct.dream_shops.model.Product;
 import com.shoppproduct.dream_shops.request.AddProductRequest;
@@ -49,8 +50,8 @@ public class ProductController {
         try {
             Product product2 = productService.addProduct(addProductRequest);
             return ResponseEntity.ok(new ApiResponse("Add product success!", product2));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+        } catch (AlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(e.getMessage(), null));
         }
 
     }

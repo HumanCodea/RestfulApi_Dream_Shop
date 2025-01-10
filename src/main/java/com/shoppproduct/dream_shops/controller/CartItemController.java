@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shoppproduct.dream_shops.auth.model.User;
+import com.shoppproduct.dream_shops.auth.service.IUserService;
 import com.shoppproduct.dream_shops.exception.CartNotFoundException;
+import com.shoppproduct.dream_shops.model.Cart;
 import com.shoppproduct.dream_shops.response.ApiResponse;
 import com.shoppproduct.dream_shops.service.cart.ICartItemService;
 import com.shoppproduct.dream_shops.service.cart.ICartService;
@@ -25,15 +28,16 @@ public class CartItemController {
     @Autowired
     private ICartService iCartService;
 
+    @Autowired
+    private IUserService iUserService;
+
     @PostMapping("/addItem")
-    public ResponseEntity<ApiResponse> addItemToCart(@RequestParam(required = false) Integer cartId, @RequestParam int productId,
+    public ResponseEntity<ApiResponse> addItemToCart(@RequestParam Long userId, @RequestParam int productId,
                                                     @RequestParam int quantity){
         try {
-
-            if (cartId == null) {
-                cartId = iCartService.initializeNewCart();
-            }
-            iCartItemService.addItemToCart(cartId, productId, quantity);                                               
+            User user = iUserService.getUserById(userId);
+            Cart cart = iCartService.initializeNewCart(user);
+            iCartItemService.addItemToCart(cart.getId(), productId, quantity);                                               
             return ResponseEntity.ok(new ApiResponse("Add item to cart success", null));
         } catch (CartNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));

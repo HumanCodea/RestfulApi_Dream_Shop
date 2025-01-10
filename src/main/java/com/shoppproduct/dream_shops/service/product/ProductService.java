@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.shoppproduct.dream_shops.dto.ImageDTO;
 import com.shoppproduct.dream_shops.dto.ProductDTO;
+import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
 import com.shoppproduct.dream_shops.exception.ProductNotFoundException;
 import com.shoppproduct.dream_shops.model.Category;
 import com.shoppproduct.dream_shops.model.Image;
@@ -36,6 +37,10 @@ public class ProductService implements IProductService{
 
     @Override
     public Product addProduct(AddProductRequest product) {
+
+        if (productExists(product.getProductBrand(), product.getProductName())) {
+            throw new AlreadyExistsException(product.getProductBrand() + " and " + product.getProductName() + " already exists, you may update this product instead!");
+        }
 
         Category category = Optional.ofNullable(categoryRepository.findByNameCategory(product.getCategory().getNameCategory()))
                 .orElseGet(() -> {
@@ -136,6 +141,10 @@ public class ProductService implements IProductService{
     @Override
     public List<ProductDTO> getConvertProduct(List<Product> products){
         return products.stream().map(this :: convertToDTO).toList();
+    }
+
+    private boolean productExists(String productBrand, String productName){
+        return productRepository.existsByProductBrandAndProductName(productBrand, productName);
     }
 
     @Override

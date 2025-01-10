@@ -88,6 +88,9 @@ public class OrderService implements IOrderService {
     @Override
     public List<OrderDTO> getUserOrders(Long userId){
         List<Orders> orders = orderRepository.findByUserId(userId);
+        if (orders.isEmpty()) {
+            throw new OrderNotFoundException("Not found order of user with id = " + userId);
+        }
         return orders.stream().map(this :: convertToDTo).toList();
     }
 
@@ -98,7 +101,8 @@ public class OrderService implements IOrderService {
             .orElseThrow(() -> new OrderNotFoundException("Not found order with id = " + orderId));
     }
 
-    private OrderDTO convertToDTo(Orders orders){
+    @Override
+    public OrderDTO convertToDTo(Orders orders){
         return modelMapper.map(orders, OrderDTO.class);
     }
 

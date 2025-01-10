@@ -1,5 +1,8 @@
 package com.shoppproduct.dream_shops.auth.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shoppproduct.dream_shops.auth.dto.UserDTO;
 import com.shoppproduct.dream_shops.auth.model.User;
 import com.shoppproduct.dream_shops.auth.service.IUserService;
+import com.shoppproduct.dream_shops.dto.CartDTO;
+import com.shoppproduct.dream_shops.dto.OrderDTO;
 import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
 import com.shoppproduct.dream_shops.exception.UserNotFoundException;
+import com.shoppproduct.dream_shops.model.Orders;
 import com.shoppproduct.dream_shops.request.CreateUserRequest;
 import com.shoppproduct.dream_shops.request.UpdateUserRequest;
 import com.shoppproduct.dream_shops.response.ApiResponse;
+import com.shoppproduct.dream_shops.service.cart.ICartService;
+import com.shoppproduct.dream_shops.service.order.IOrderService;
 
 @RestController
 @RequestMapping(path = "${api.prefix}/users")
@@ -28,11 +36,26 @@ public class UserController {
     @Autowired
     private IUserService iUserService;
 
+    @Autowired
+    private ICartService iCartService;
+
+    @Autowired
+    private IOrderService iOrderService;
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<ApiResponse> getUser(@PathVariable Long userId){
         try {
             User user = iUserService.getUserById(userId);
             UserDTO userDTO = iUserService.convertUserToDTO(user);
+            CartDTO cartDTO = iCartService.convertCartToDTO(user.getCart());
+            List<Orders> orders = user.getOrders();
+            List<OrderDTO> orderDTOs = new ArrayList<>();
+            for(Orders o : orders){
+                OrderDTO orderDTO = iOrderService.convertToDTo(o);
+                orderDTOs.add(orderDTO);
+            }
+            userDTO.setCartDTO(cartDTO);
+            userDTO.setOrderDTOs(orderDTOs);
             return ResponseEntity.ok( new ApiResponse("Get user success", userDTO));
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
