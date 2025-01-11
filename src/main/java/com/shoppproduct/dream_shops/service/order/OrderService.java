@@ -18,7 +18,7 @@ import com.shoppproduct.dream_shops.model.OrderItem;
 import com.shoppproduct.dream_shops.model.Product;
 import com.shoppproduct.dream_shops.repostitory.OrderRepository;
 import com.shoppproduct.dream_shops.repostitory.ProductRepository;
-import com.shoppproduct.dream_shops.service.cart.ICartService;
+import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
 
 @Service
 public class OrderService implements IOrderService {
