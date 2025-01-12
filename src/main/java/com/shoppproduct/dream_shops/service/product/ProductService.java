@@ -7,8 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shoppproduct.dream_shops.dto.ImageDTO;
-import com.shoppproduct.dream_shops.dto.ProductDTO;
 import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
 import com.shoppproduct.dream_shops.exception.ProductNotFoundException;
 import com.shoppproduct.dream_shops.model.Category;
@@ -17,8 +15,10 @@ import com.shoppproduct.dream_shops.model.Product;
 import com.shoppproduct.dream_shops.repostitory.CategoryRepository;
 import com.shoppproduct.dream_shops.repostitory.ImageRepository;
 import com.shoppproduct.dream_shops.repostitory.ProductRepository;
-import com.shoppproduct.dream_shops.request.AddProductRequest;
-import com.shoppproduct.dream_shops.request.UpdateProductRequest;
+import com.shoppproduct.dream_shops.utils.dto.ImageDTO;
+import com.shoppproduct.dream_shops.utils.dto.ProductDTO;
+import com.shoppproduct.dream_shops.utils.request.AddProductRequest;
+import com.shoppproduct.dream_shops.utils.request.UpdateProductRequest;
 
 @Service
 public class ProductService implements IProductService{

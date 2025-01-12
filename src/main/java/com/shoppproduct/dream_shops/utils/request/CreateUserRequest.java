@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.request;
+package com.shoppproduct.dream_shops.utils.request;
 
 import lombok.Data;
 

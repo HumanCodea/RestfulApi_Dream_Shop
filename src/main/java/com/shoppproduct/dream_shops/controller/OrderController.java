@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shoppproduct.dream_shops.dto.OrderDTO;
 import com.shoppproduct.dream_shops.exception.OrderNotFoundException;
 import com.shoppproduct.dream_shops.exception.UserNotFoundException;
 import com.shoppproduct.dream_shops.model.Orders;
-import com.shoppproduct.dream_shops.response.ApiResponse;
 import com.shoppproduct.dream_shops.service.order.IOrderService;
+import com.shoppproduct.dream_shops.utils.dto.OrderDTO;
+import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 @RestController
 @RequestMapping(path = "${api.prefix}/orders")

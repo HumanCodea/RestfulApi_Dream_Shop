@@ -3,8 +3,8 @@ package com.shoppproduct.dream_shops.service.cart.Imp;
 import java.math.BigDecimal;
 
 import com.shoppproduct.dream_shops.auth.model.User;
-import com.shoppproduct.dream_shops.dto.CartDTO;
 import com.shoppproduct.dream_shops.model.Cart;
+import com.shoppproduct.dream_shops.utils.dto.CartDTO;
 
 public interface ICartService {
     

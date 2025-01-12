@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.shoppproduct.dream_shops.auth.model.User;
-import com.shoppproduct.dream_shops.enums.OrderStatus;
+import com.shoppproduct.dream_shops.utils.enums.OrderStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

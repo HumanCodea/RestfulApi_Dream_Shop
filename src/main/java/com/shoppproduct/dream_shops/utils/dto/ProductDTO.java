@@ -1,21 +1,23 @@
-package com.shoppproduct.dream_shops.request;
+package com.shoppproduct.dream_shops.utils.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import com.shoppproduct.dream_shops.model.Category;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class AddProductRequest {
+public class ProductDTO {
+
     private int productId;
-    private String productName;
     private String productBrand;
+    private String productName;
     private BigDecimal productPrices;
     private int inventory;
     private String productDescription;
     private Category category;
+    private List<ImageDTO> images;
+    
 }
+

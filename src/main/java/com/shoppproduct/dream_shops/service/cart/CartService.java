@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shoppproduct.dream_shops.auth.model.User;
-import com.shoppproduct.dream_shops.dto.CartDTO;
-import com.shoppproduct.dream_shops.dto.CartItemDTO;
-import com.shoppproduct.dream_shops.dto.ProductDTO;
 import com.shoppproduct.dream_shops.exception.CartNotFoundException;
 import com.shoppproduct.dream_shops.model.Cart;
 import com.shoppproduct.dream_shops.model.CartItem;
@@ -20,6 +17,9 @@ import com.shoppproduct.dream_shops.repostitory.CartItemRepository;
 import com.shoppproduct.dream_shops.repostitory.CartRepository;
 import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
 import com.shoppproduct.dream_shops.service.product.IProductService;
+import com.shoppproduct.dream_shops.utils.dto.CartDTO;
+import com.shoppproduct.dream_shops.utils.dto.CartItemDTO;
+import com.shoppproduct.dream_shops.utils.dto.ProductDTO;
 
 @Service
 public class CartService implements ICartService{

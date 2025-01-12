@@ -2,10 +2,10 @@ package com.shoppproduct.dream_shops.service.product;
 
 import java.util.List;
 
-import com.shoppproduct.dream_shops.dto.ProductDTO;
 import com.shoppproduct.dream_shops.model.Product;
-import com.shoppproduct.dream_shops.request.AddProductRequest;
-import com.shoppproduct.dream_shops.request.UpdateProductRequest;
+import com.shoppproduct.dream_shops.utils.dto.ProductDTO;
+import com.shoppproduct.dream_shops.utils.request.AddProductRequest;
+import com.shoppproduct.dream_shops.utils.request.UpdateProductRequest;
 
 public interface IProductService {
     

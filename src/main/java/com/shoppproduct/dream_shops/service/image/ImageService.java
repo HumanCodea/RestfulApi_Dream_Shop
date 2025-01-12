@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.shoppproduct.dream_shops.dto.ImageDTO;
 import com.shoppproduct.dream_shops.exception.ImageNotFoundException;
 import com.shoppproduct.dream_shops.model.Image;
 import com.shoppproduct.dream_shops.model.Product;
 import com.shoppproduct.dream_shops.repostitory.ImageRepository;
 import com.shoppproduct.dream_shops.service.product.IProductService;
+import com.shoppproduct.dream_shops.utils.dto.ImageDTO;
 
 @Service
 public class ImageService implements IImageService{

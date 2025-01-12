@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.dto;
+package com.shoppproduct.dream_shops.utils.dto;
 
 import java.math.BigDecimal;
 

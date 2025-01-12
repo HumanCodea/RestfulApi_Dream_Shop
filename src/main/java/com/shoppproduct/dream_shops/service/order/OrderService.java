@@ -9,8 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shoppproduct.dream_shops.dto.OrderDTO;
-import com.shoppproduct.dream_shops.enums.OrderStatus;
 import com.shoppproduct.dream_shops.exception.OrderNotFoundException;
 import com.shoppproduct.dream_shops.model.Cart;
 import com.shoppproduct.dream_shops.model.Orders;
@@ -19,6 +17,8 @@ import com.shoppproduct.dream_shops.model.Product;
 import com.shoppproduct.dream_shops.repostitory.OrderRepository;
 import com.shoppproduct.dream_shops.repostitory.ProductRepository;
 import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
+import com.shoppproduct.dream_shops.utils.dto.OrderDTO;
+import com.shoppproduct.dream_shops.utils.enums.OrderStatus;
 
 @Service
 public class OrderService implements IOrderService {

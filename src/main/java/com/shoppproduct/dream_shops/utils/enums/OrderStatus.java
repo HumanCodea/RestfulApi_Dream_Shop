@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.enums;
+package com.shoppproduct.dream_shops.utils.enums;
 
 public enum OrderStatus {
     

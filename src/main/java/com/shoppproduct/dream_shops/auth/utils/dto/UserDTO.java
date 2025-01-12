@@ -1,9 +1,9 @@
-package com.shoppproduct.dream_shops.auth.dto;
+package com.shoppproduct.dream_shops.auth.utils.dto;
 
 import java.util.List;
 
-import com.shoppproduct.dream_shops.dto.CartDTO;
-import com.shoppproduct.dream_shops.dto.OrderDTO;
+import com.shoppproduct.dream_shops.utils.dto.CartDTO;
+import com.shoppproduct.dream_shops.utils.dto.OrderDTO;
 
 import lombok.Data;
 

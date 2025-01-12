@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.response;
+package com.shoppproduct.dream_shops.utils.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shoppproduct.dream_shops.auth.dto.UserDTO;
 import com.shoppproduct.dream_shops.auth.model.User;
 import com.shoppproduct.dream_shops.auth.service.IUserService;
-import com.shoppproduct.dream_shops.dto.CartDTO;
-import com.shoppproduct.dream_shops.dto.OrderDTO;
+import com.shoppproduct.dream_shops.auth.utils.dto.UserDTO;
 import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
 import com.shoppproduct.dream_shops.exception.UserNotFoundException;
 import com.shoppproduct.dream_shops.model.Orders;
-import com.shoppproduct.dream_shops.request.CreateUserRequest;
-import com.shoppproduct.dream_shops.request.UpdateUserRequest;
-import com.shoppproduct.dream_shops.response.ApiResponse;
 import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
 import com.shoppproduct.dream_shops.service.order.IOrderService;
+import com.shoppproduct.dream_shops.utils.dto.CartDTO;
+import com.shoppproduct.dream_shops.utils.dto.OrderDTO;
+import com.shoppproduct.dream_shops.utils.request.CreateUserRequest;
+import com.shoppproduct.dream_shops.utils.request.UpdateUserRequest;
+import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 @RestController
 @RequestMapping(path = "${api.prefix}/users")

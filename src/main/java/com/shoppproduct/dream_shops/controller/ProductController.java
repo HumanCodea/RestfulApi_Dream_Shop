@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shoppproduct.dream_shops.dto.ProductDTO;
 import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
 import com.shoppproduct.dream_shops.exception.ProductNotFoundException;
 import com.shoppproduct.dream_shops.model.Product;
-import com.shoppproduct.dream_shops.request.AddProductRequest;
-import com.shoppproduct.dream_shops.request.UpdateProductRequest;
-import com.shoppproduct.dream_shops.response.ApiResponse;
 import com.shoppproduct.dream_shops.service.product.IProductService;
+import com.shoppproduct.dream_shops.utils.dto.ProductDTO;
+import com.shoppproduct.dream_shops.utils.request.AddProductRequest;
+import com.shoppproduct.dream_shops.utils.request.UpdateProductRequest;
+import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 @RestController
 @RequestMapping(path = "${api.prefix}/products")

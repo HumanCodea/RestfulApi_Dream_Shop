@@ -1,10 +1,10 @@
-package com.shoppproduct.dream_shops.dto;
+package com.shoppproduct.dream_shops.utils.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.shoppproduct.dream_shops.enums.OrderStatus;
+import com.shoppproduct.dream_shops.utils.enums.OrderStatus;
 
 import lombok.Data;
 

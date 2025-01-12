@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
 import com.shoppproduct.dream_shops.exception.CategoryNotFoundException;
 import com.shoppproduct.dream_shops.model.Category;
-import com.shoppproduct.dream_shops.response.ApiResponse;
 import com.shoppproduct.dream_shops.service.category.ICategoryService;
+import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 @RestController
 @RequestMapping(path = "${api.prefix}/categories")

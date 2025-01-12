@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.shoppproduct.dream_shops.dto.ImageDTO;
 import com.shoppproduct.dream_shops.model.Image;
+import com.shoppproduct.dream_shops.utils.dto.ImageDTO;
 
 public interface IImageService {
     

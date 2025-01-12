@@ -14,9 +14,9 @@ import com.shoppproduct.dream_shops.auth.model.User;
 import com.shoppproduct.dream_shops.auth.service.IUserService;
 import com.shoppproduct.dream_shops.exception.CartNotFoundException;
 import com.shoppproduct.dream_shops.model.Cart;
-import com.shoppproduct.dream_shops.response.ApiResponse;
 import com.shoppproduct.dream_shops.service.cart.Imp.ICartItemService;
 import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
+import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 @RestController
 @RequestMapping(path = "${api.prefix}/cartItems")

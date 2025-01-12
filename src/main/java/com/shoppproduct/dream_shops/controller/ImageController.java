@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.shoppproduct.dream_shops.dto.ImageDTO;
 import com.shoppproduct.dream_shops.exception.ImageNotFoundException;
 import com.shoppproduct.dream_shops.model.Image;
-import com.shoppproduct.dream_shops.response.ApiResponse;
 import com.shoppproduct.dream_shops.service.image.IImageService;
+import com.shoppproduct.dream_shops.utils.dto.ImageDTO;
+import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 @RestController
 @RequestMapping(path = "${api.prefix}/images")
