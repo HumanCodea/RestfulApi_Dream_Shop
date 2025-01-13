@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppproduct.dream_shops.auth.service.AuthService;
 import com.shoppproduct.dream_shops.auth.utils.request.LoginRequest;
+import com.shoppproduct.dream_shops.auth.utils.request.RegisterRequest;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 @RestController
@@ -17,10 +18,15 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @PostMapping("/register")
+    public ResponseEntity<ApiResponse> register(@RequestBody RegisterRequest registerRequest){
+        return ResponseEntity.ok(new ApiResponse("Register Successfully!", authService.register(registerRequest)));
+    }
     
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> login(@RequestBody LoginRequest loginRequest){
-        return ResponseEntity.ok(new ApiResponse("Success", authService.login(loginRequest)));
+        return ResponseEntity.ok(new ApiResponse("Login Successfully!", authService.login(loginRequest)));
     }
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppproduct.dream_shops.auth.model.User;
-import com.shoppproduct.dream_shops.auth.service.IUserService;
+import com.shoppproduct.dream_shops.auth.service.Imp.IUserService;
 import com.shoppproduct.dream_shops.exception.CartNotFoundException;
 import com.shoppproduct.dream_shops.model.Cart;
 import com.shoppproduct.dream_shops.service.cart.Imp.ICartItemService;

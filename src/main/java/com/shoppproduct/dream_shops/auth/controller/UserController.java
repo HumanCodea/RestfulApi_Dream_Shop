@@ -9,23 +9,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppproduct.dream_shops.auth.model.User;
-import com.shoppproduct.dream_shops.auth.service.IUserService;
+import com.shoppproduct.dream_shops.auth.service.Imp.IUserService;
 import com.shoppproduct.dream_shops.auth.utils.dto.UserDTO;
-import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
 import com.shoppproduct.dream_shops.exception.UserNotFoundException;
 import com.shoppproduct.dream_shops.model.Orders;
 import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
 import com.shoppproduct.dream_shops.service.order.IOrderService;
 import com.shoppproduct.dream_shops.utils.dto.CartDTO;
 import com.shoppproduct.dream_shops.utils.dto.OrderDTO;
-import com.shoppproduct.dream_shops.utils.request.CreateUserRequest;
 import com.shoppproduct.dream_shops.utils.request.UpdateUserRequest;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
@@ -62,17 +59,6 @@ public class UserController {
         }
     }
 
-    @PostMapping("/createUser")
-    public ResponseEntity<ApiResponse> createUser(@RequestBody CreateUserRequest createUserRequest){
-        try {
-            User user = iUserService.createUser(createUserRequest);
-            UserDTO userDTO = iUserService.convertUserToDTO(user);
-            return ResponseEntity.ok(new ApiResponse("Create user success", userDTO));
-        } catch (AlreadyExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse("Error", e.getMessage()));
-        }
-    }
-    
     @PutMapping("/updateUser/{userId}")
     public ResponseEntity<ApiResponse> updateUser(@RequestBody UpdateUserRequest updateUserRequest,@PathVariable Long userId){
         try {

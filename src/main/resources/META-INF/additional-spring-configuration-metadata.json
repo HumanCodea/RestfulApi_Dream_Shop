@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "api.prefix",
-  "type": "java.lang.String",
-  "description": "A description for 'api.prefix'"
-}]}
+{"properties": [
+  {
+    "name": "api.prefix",
+    "type": "java.lang.String",
+    "description": "A description for 'api.prefix'"
+  },
+  {
+    "name": "secret_key",
+    "type": "java.lang.String",
+    "description": "A description for 'secret_key'"
+  }
+]}
