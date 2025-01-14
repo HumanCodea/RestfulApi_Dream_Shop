@@ -6,6 +6,7 @@ import com.shoppproduct.dream_shops.model.Product;
 import com.shoppproduct.dream_shops.utils.dto.ProductDTO;
 import com.shoppproduct.dream_shops.utils.request.AddProductRequest;
 import com.shoppproduct.dream_shops.utils.request.UpdateProductRequest;
+import com.shoppproduct.dream_shops.utils.response.ProductPageRespone;
 
 public interface IProductService {
     
@@ -22,4 +23,7 @@ public interface IProductService {
     int countProductsByBrandAndName(String brand, String productName);
     public ProductDTO convertToDTO(Product product);
     public List<ProductDTO> getConvertProduct(List<Product> products);
+    public ProductPageRespone getAllProductWithPagination(Integer pageNumber, Integer pageSize);
+    public ProductPageRespone getAllProductWithPaginationAndSorting(Integer pageNumber, Integer pageSize, String sortBy, String dir);
+
 }

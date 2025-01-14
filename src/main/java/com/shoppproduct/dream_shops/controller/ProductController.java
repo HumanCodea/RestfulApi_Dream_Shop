@@ -20,6 +20,7 @@ import com.shoppproduct.dream_shops.exception.ProductNotFoundException;
 import com.shoppproduct.dream_shops.model.Product;
 import com.shoppproduct.dream_shops.service.product.IProductService;
 import com.shoppproduct.dream_shops.utils.dto.ProductDTO;
+import com.shoppproduct.dream_shops.utils.enums.Appconstant;
 import com.shoppproduct.dream_shops.utils.request.AddProductRequest;
 import com.shoppproduct.dream_shops.utils.request.UpdateProductRequest;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
@@ -181,6 +182,26 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }
 
+    }
+
+    @GetMapping("product/pagination")
+    public ResponseEntity<ApiResponse> getAllProductWithPagination(
+                        @RequestParam(defaultValue = Appconstant.PAGE_NUMBER, required = false) Integer pageNumber,
+                        @RequestParam(defaultValue = Appconstant.PAGE_SIZE, required = false) Integer pageSize)
+    {
+        return ResponseEntity.ok(new ApiResponse("Get all product with pagination", 
+                                        productService.getAllProductWithPagination(pageNumber, pageSize)));
+    }
+
+    @GetMapping("product/paginationAndsorting")
+    public ResponseEntity<ApiResponse> getAllProductWithPaginationAndSorting(
+                        @RequestParam(defaultValue = Appconstant.PAGE_NUMBER, required = false) Integer pageNumber,
+                        @RequestParam(defaultValue = Appconstant.PAGE_SIZE, required = false) Integer pageSize,
+                        @RequestParam(defaultValue = Appconstant.SORT_BY, required = false) String productId,
+                        @RequestParam(defaultValue = Appconstant.SORT_DIR, required = false) String dir)
+    {
+        return ResponseEntity.ok(new ApiResponse("Get all product with pagination and sorting",
+                            productService.getAllProductWithPaginationAndSorting(pageNumber, pageSize, productId, dir)));
     }
 
 }

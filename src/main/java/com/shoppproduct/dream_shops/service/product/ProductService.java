@@ -5,6 +5,10 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shoppproduct.dream_shops.exception.AlreadyExistsException;
@@ -19,6 +23,7 @@ import com.shoppproduct.dream_shops.utils.dto.ImageDTO;
 import com.shoppproduct.dream_shops.utils.dto.ProductDTO;
 import com.shoppproduct.dream_shops.utils.request.AddProductRequest;
 import com.shoppproduct.dream_shops.utils.request.UpdateProductRequest;
+import com.shoppproduct.dream_shops.utils.response.ProductPageRespone;
 
 @Service
 public class ProductService implements IProductService{
@@ -138,13 +143,52 @@ public class ProductService implements IProductService{
        return productRepository.countByProductBrandAndProductName(brand,productName);
     }
     
+    private boolean productExists(String productBrand, String productName){
+        return productRepository.existsByProductBrandAndProductName(productBrand, productName);
+    }
+
+    @Override
+    public ProductPageRespone getAllProductWithPagination(Integer pageNumber, Integer pageSize) {
+        
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+        Page<Product> productPages = productRepository.findAll(pageable);
+
+        List<Product> products = productPages.getContent();
+
+        List<ProductDTO> productDTOs = getConvertProduct(products);
+
+        return new ProductPageRespone(productDTOs, pageNumber, pageSize, 
+                            productPages.getTotalElements(),
+                            productPages.getTotalPages(),
+                            productPages.isLast());
+
+    }
+
+    @Override
+    public ProductPageRespone getAllProductWithPaginationAndSorting(Integer pageNumber, Integer pageSize, String sortBy,
+            String dir) {
+
+        Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+
+        Page<Product> productPages = productRepository.findAll(pageable);
+
+        List<Product> products = productPages.getContent();
+
+        List<ProductDTO> productDTOs = getConvertProduct(products);
+
+        return new ProductPageRespone(productDTOs, pageNumber, pageSize, 
+                            productPages.getTotalElements(), 
+                            productPages.getTotalPages(), 
+                            productPages.isLast());
+
+    }
+
     @Override
     public List<ProductDTO> getConvertProduct(List<Product> products){
         return products.stream().map(this :: convertToDTO).toList();
-    }
-
-    private boolean productExists(String productBrand, String productName){
-        return productRepository.existsByProductBrandAndProductName(productBrand, productName);
     }
 
     @Override
