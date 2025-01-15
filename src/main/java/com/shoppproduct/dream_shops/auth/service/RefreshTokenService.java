@@ -56,10 +56,10 @@ public class RefreshTokenService implements IRefreshTokenService {
 
         if ( refToken.getExpirationTime().compareTo(Instant.now()) < 0 ) {
             refreshTokenRepository.delete(refToken);
-            throw new ReTokenExpiredException("Refresh token expired");
+            throw new ReTokenExpiredException("Refresh token expired! Please login again");
         }
 
-        return refToken; 
+        return refToken;
 
     }
     

@@ -18,6 +18,7 @@ import com.shoppproduct.dream_shops.auth.utils.request.LoginRequest;
 import com.shoppproduct.dream_shops.auth.utils.request.RefreshTokenRequest;
 import com.shoppproduct.dream_shops.auth.utils.request.RegisterRequest;
 import com.shoppproduct.dream_shops.auth.utils.respone.AuthRespone;
+import com.shoppproduct.dream_shops.exception.ReTokenExpiredException;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 @RestController
@@ -50,16 +51,20 @@ public class AuthController {
     @PostMapping("/refreshToken")
     public ResponseEntity<ApiResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest){
 
-        RefreshToken refreshToken = refreshTokenService.verifyRefreshToken(refreshTokenRequest.getRefreshToken());
+        try {
+            RefreshToken refreshToken = refreshTokenService.verifyRefreshToken(refreshTokenRequest.getRefreshToken());
 
-        User user = refreshToken.getUser();
+            User user = refreshToken.getUser();
 
-        String accessToken = jwtService.generateToken(user);
+            String accessToken = jwtService.generateToken(user);
 
-        return ResponseEntity.ok(new ApiResponse("Refresh Token Successfully", AuthRespone.builder()
-                                                                    .accessToken(accessToken)
-                                                                    .refreshToken(refreshToken.getRefreshToken())
-                                                                    .build()));
+            return ResponseEntity.ok(new ApiResponse("Refresh Token Successfully", AuthRespone.builder()
+                                                                        .accessToken(accessToken)
+                                                                        .refreshToken(refreshToken.getRefreshToken())
+                                                                        .build()));
+        } catch (ReTokenExpiredException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+        }
 
     }
 
