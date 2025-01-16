@@ -3,6 +3,7 @@ package com.shoppproduct.dream_shops.auth.controller;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class ForgotPasswordController {
     @PostMapping("/verifyEmail/{email}")
     public ResponseEntity<ApiResponse> verifyEmailHandler(@PathVariable String email){
 
-        User user = userRepository.findByEmail(email)
+        User user = Optional.ofNullable(userRepository.findByEmail(email))
             .orElseThrow(() -> new UserNotFoundException("Not found user with email = " + email));
 
         Integer otp = generateOtp();
@@ -73,7 +74,7 @@ public class ForgotPasswordController {
     @PostMapping("/verifyOtp/{otp}/{email}")
     public ResponseEntity<ApiResponse> verifyOtpHandler(@PathVariable Integer otp, @PathVariable String email){
 
-        User user = userRepository.findByEmail(email)
+        User user = Optional.ofNullable(userRepository.findByEmail(email))
                 .orElseThrow(() -> new UserNotFoundException("Please provide an valid email"));
 
         ForgotPassword forgotPassword = forgotPasswordRepository.findByOtpAndUser(otp,user)
@@ -92,7 +93,7 @@ public class ForgotPasswordController {
                                                             @RequestBody ChangePasswordRequest changePasswordRequest)
     {
 
-        User user = userRepository.findByEmail(email)
+        User user = Optional.ofNullable(userRepository.findByEmail(email))
                 .orElseThrow(() -> new UserNotFoundException("Please provide an valid email"));
 
         if (!Objects.equals(changePasswordRequest.password(), changePasswordRequest.repeatPassword())) {

@@ -9,8 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import io.jsonwebtoken.JwtException;
 import io.micrometer.common.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -31,37 +33,47 @@ public class AuthFilterService extends OncePerRequestFilter{
                                     @NonNull HttpServletResponse response, 
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
        
-        final String authHeader = request.getHeader("Authorization");
-        String jwt;
-        String username;
+        try {
+            String jwt = parseJwt(request);
 
-        if ( authHeader == null || !authHeader.startsWith("Bearer ") ) {
-            filterChain.doFilter(request, response);
+            String username = jwtService.extractUsername(jwt);
+
+            if ( username != null && SecurityContextHolder.getContext().getAuthentication() == null ) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+                if (jwtService.isTokenValid(jwt, userDetails)) {
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, 
+                        null,
+                        userDetails.getAuthorities());
+
+                    authenticationToken.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                    );
+                    
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
+            }
+        } catch (JwtException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write(e.getMessage() + ": Invalid or expired token, you may login again or refresh token");
+            return;
+        } catch (Exception e){
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write(e.getMessage());
             return;
         }
 
-        jwt = authHeader.substring(7);
+        filterChain.doFilter(request, response);
+    }
 
-        username = jwtService.extractUsername(jwt);
-
-        if ( username != null && SecurityContextHolder.getContext().getAuthentication() == null ) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, 
-                    null,
-                    userDetails.getAuthorities());
-
-                authenticationToken.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request)
-                );
-                
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            }
+    private String parseJwt(HttpServletRequest request){
+        final String authHeader = request.getHeader("Authorization");
+        if ( StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ") ) {
+            return authHeader.substring(7);
         }
 
-        filterChain.doFilter(request, response);
+        return null;
     }
     
 }

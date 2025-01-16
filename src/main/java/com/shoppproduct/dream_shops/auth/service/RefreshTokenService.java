@@ -1,6 +1,7 @@
 package com.shoppproduct.dream_shops.auth.service;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class RefreshTokenService implements IRefreshTokenService {
     @Override
     public RefreshToken createRefreshToken(String username) {
         
-        User user = userRepository.findByEmail(username)
+        User user = Optional.ofNullable(userRepository.findByEmail(username))
             .orElseThrow(() -> new UsernameNotFoundException("User not found with email : " + username));
 
         RefreshToken refreshToken = user.getRefreshToken();

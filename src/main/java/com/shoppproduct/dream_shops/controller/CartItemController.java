@@ -18,6 +18,8 @@ import com.shoppproduct.dream_shops.service.cart.Imp.ICartItemService;
 import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.jsonwebtoken.JwtException;
+
 @RestController
 @RequestMapping(path = "${api.prefix}/cartItems")
 public class CartItemController {
@@ -32,15 +34,16 @@ public class CartItemController {
     private IUserService iUserService;
 
     @PostMapping("/addItem")
-    public ResponseEntity<ApiResponse> addItemToCart(@RequestParam Long userId, @RequestParam int productId,
-                                                    @RequestParam int quantity){
+    public ResponseEntity<ApiResponse> addItemToCart(@RequestParam int productId, @RequestParam int quantity){
         try {
-            User user = iUserService.getUserById(userId);
+            User user = iUserService.getAuthenticatedUser();
             Cart cart = iCartService.initializeNewCart(user);
             iCartItemService.addItemToCart(cart.getId(), productId, quantity);                                               
             return ResponseEntity.ok(new ApiResponse("Add item to cart success", null));
         } catch (CartNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        } catch(JwtException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(ex.getMessage(), null));
         }
     }
 

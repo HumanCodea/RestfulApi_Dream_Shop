@@ -10,6 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.shoppproduct.dream_shops.auth.service.AuthFilterService;
+import com.shoppproduct.dream_shops.auth.service.JwtAuthEntryPoint;
 
 @Configuration
 public class ConfigSecurity {
@@ -19,15 +20,19 @@ public class ConfigSecurity {
 
     @Autowired
     private AuthFilterService authFilterService;
+
+    @Autowired
+    private JwtAuthEntryPoint authEntryPoint;
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf(crsf -> crsf.disable())
+            .exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPoint))
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/v1/auths/**", "/api/v1/users/createUser").permitAll()
                 .anyRequest().authenticated())
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(authFilterService, UsernamePasswordAuthenticationFilter.class);
 

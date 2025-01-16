@@ -1,5 +1,7 @@
 package com.shoppproduct.dream_shops.auth.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,7 +64,7 @@ public class AuthService {
                 loginRequest.getPassword())
         );
 
-        User user = userRepository.findByEmail(loginRequest.getEmail())
+        User user = Optional.ofNullable(userRepository.findByEmail(loginRequest.getEmail()))
             .orElseThrow(() -> new UsernameNotFoundException("Not found email"));
         
         

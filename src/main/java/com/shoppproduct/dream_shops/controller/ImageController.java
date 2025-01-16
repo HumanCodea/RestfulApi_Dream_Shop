@@ -9,6 +9,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ public class ImageController {
     @Autowired
     private IImageService iImageService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload")
     public ResponseEntity<ApiResponse> saveImages(@RequestParam List<MultipartFile> files, @RequestParam int productId){
         try {
@@ -43,6 +45,7 @@ public class ImageController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/image/download/{imageId}")
     public ResponseEntity<Resource> downloadImage(@PathVariable int imageId) throws SQLException{
         Image image = iImageService.getImageById(imageId);
@@ -52,6 +55,7 @@ public class ImageController {
                             .body(resource);
     }
     
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update/{imageId}")
     public ResponseEntity<ApiResponse> updateImage(@PathVariable int imageId, @RequestBody MultipartFile file){
 
@@ -68,6 +72,7 @@ public class ImageController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse("Update failed!", HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{imageId}")
     public ResponseEntity<ApiResponse> deleteImage(@PathVariable int imageId){
 

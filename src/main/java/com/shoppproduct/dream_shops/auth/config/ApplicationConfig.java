@@ -1,5 +1,7 @@
 package com.shoppproduct.dream_shops.auth.config;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +24,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> userRepository.findByEmail(username)
+        return username -> Optional.ofNullable(userRepository.findByEmail(username))
             .orElseThrow(() -> new UsernameNotFoundException("User not found with email = " + username));
     }
 

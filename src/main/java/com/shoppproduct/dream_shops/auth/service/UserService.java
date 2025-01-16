@@ -2,6 +2,8 @@ package com.shoppproduct.dream_shops.auth.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.shoppproduct.dream_shops.auth.model.User;
@@ -45,6 +47,15 @@ public class UserService implements IUserService{
     @Override
     public UserDTO convertUserToDTO(User user){
         return modelMapper.map(user, UserDTO.class);
+    }
+
+    @Override
+    public User getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        return userRepository.findByEmail(email);
     }
 
 }
