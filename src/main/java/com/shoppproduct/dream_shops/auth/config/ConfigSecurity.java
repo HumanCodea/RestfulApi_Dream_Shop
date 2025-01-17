@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -13,6 +15,8 @@ import com.shoppproduct.dream_shops.auth.service.AuthFilterService;
 import com.shoppproduct.dream_shops.auth.service.JwtAuthEntryPoint;
 
 @Configuration
+@EnableMethodSecurity
+@EnableWebSecurity
 public class ConfigSecurity {
 
     @Autowired
@@ -27,14 +31,16 @@ public class ConfigSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf(crsf -> crsf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/v1/auths/**").permitAll()
+                .anyRequest().authenticated()
+            )
             .exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPoint))
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/auths/**", "/api/v1/users/createUser").permitAll()
-                .anyRequest().authenticated())
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
             .authenticationProvider(authenticationProvider)
-            .addFilterBefore(authFilterService, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(authFilterService, UsernamePasswordAuthenticationFilter.class); // ưu tiên hơn exceptionHandling
 
         return httpSecurity.build();
                 

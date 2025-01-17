@@ -32,7 +32,15 @@ public class AuthFilterService extends OncePerRequestFilter{
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response, 
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-       
+
+        String path = request.getRequestURI();
+
+        // Bỏ qua các đường dẫn cho phép
+        if (path.startsWith("/api/v1/auths/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        
         try {
             String jwt = parseJwt(request);
 
@@ -56,7 +64,7 @@ public class AuthFilterService extends OncePerRequestFilter{
             }
         } catch (JwtException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write(e.getMessage() + ": Invalid or expired token, you may login again or refresh token");
+            response.getWriter().write(": Invalid or expired token, you may login again or refresh token");
             return;
         } catch (Exception e){
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -68,6 +76,7 @@ public class AuthFilterService extends OncePerRequestFilter{
     }
 
     private String parseJwt(HttpServletRequest request){
+        
         final String authHeader = request.getHeader("Authorization");
         if ( StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ") ) {
             return authHeader.substring(7);
