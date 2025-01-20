@@ -70,7 +70,7 @@ public class User implements UserDetails{
     @OneToOne(mappedBy = "user")
     private RefreshToken refreshToken;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private ForgotPassword forgotPassword;
 
     @Override

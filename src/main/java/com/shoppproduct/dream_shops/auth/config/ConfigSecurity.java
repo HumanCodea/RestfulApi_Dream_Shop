@@ -15,7 +15,7 @@ import com.shoppproduct.dream_shops.auth.service.AuthFilterService;
 import com.shoppproduct.dream_shops.auth.service.JwtAuthEntryPoint;
 
 @Configuration
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 public class ConfigSecurity {
 
@@ -32,10 +32,12 @@ public class ConfigSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf(crsf -> crsf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/auths/**").permitAll()
+                .requestMatchers("/api/v1/auths/**","/api/v1/forgotPassword/**").permitAll()
                 .anyRequest().authenticated()
             )
-            .exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPoint))
+            .exceptionHandling(exception -> exception
+                .authenticationEntryPoint(authEntryPoint)
+            )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )

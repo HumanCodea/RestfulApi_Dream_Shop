@@ -2,6 +2,7 @@ package com.shoppproduct.dream_shops.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -48,6 +49,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ForgotPasswordNotFoundException.class)
     public ProblemDetail handleForgotPasswordNotFoundException(ForgotPasswordNotFoundException ex){
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ProblemDetail handleAccessDeniedException(AccessDeniedException ex){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, "You do not have permission to this action");
     }
     
 }
