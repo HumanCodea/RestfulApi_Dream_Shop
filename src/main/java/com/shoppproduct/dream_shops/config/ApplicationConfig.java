@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.auth.config;
+package com.shoppproduct.dream_shops.config;
 
 import java.util.Optional;
 
@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.shoppproduct.dream_shops.auth.repository.UserRepository;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 
 @Configuration
 public class ApplicationConfig {
@@ -41,11 +44,14 @@ public class ApplicationConfig {
         return configuration.getAuthenticationManager();
     }
 
-    
-    
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public OpenAPI openAPI(){
+        return new OpenAPI().info(new Info().title("API Service document"));
     }
 
 }

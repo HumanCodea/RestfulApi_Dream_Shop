@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.auth.controller;
+package com.shoppproduct.dream_shops.controller;
 
 import java.time.Instant;
 import java.util.Date;

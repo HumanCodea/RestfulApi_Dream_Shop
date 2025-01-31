@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.auth.controller;
+package com.shoppproduct.dream_shops.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

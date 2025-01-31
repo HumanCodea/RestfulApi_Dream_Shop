@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.auth.config;
+package com.shoppproduct.dream_shops.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +32,8 @@ public class ConfigSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf(crsf -> crsf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/auths/**","/api/v1/forgotPassword/**").permitAll()
+                .requestMatchers("/api/v1/auths/**","/api/v1/forgotPassword/**",
+                    "/v3/api-docs/**","/v2/api-docs","/swagger-ui/**","/swagger-resources/**","/webjars/**").permitAll()
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exception -> exception
