@@ -21,8 +21,11 @@ import com.shoppproduct.dream_shops.model.Category;
 import com.shoppproduct.dream_shops.service.category.ICategoryService;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "${api.prefix}/categories")
+@Tag(name = "Category Controller")
 public class CategoryController {
 
     @Autowired

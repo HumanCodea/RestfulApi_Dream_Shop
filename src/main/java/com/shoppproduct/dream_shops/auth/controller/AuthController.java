@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.controller;
+package com.shoppproduct.dream_shops.auth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +21,11 @@ import com.shoppproduct.dream_shops.auth.utils.respone.AuthRespone;
 import com.shoppproduct.dream_shops.exception.ReTokenExpiredException;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "${api.prefix}/auths")
+@Tag(name = "Auth Controller")
 public class AuthController {
 
     @Autowired

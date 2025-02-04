@@ -26,13 +26,18 @@ import com.shoppproduct.dream_shops.utils.request.AddProductRequest;
 import com.shoppproduct.dream_shops.utils.request.UpdateProductRequest;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "${api.prefix}/products")
+@Tag(name = "Product Controller")
 public class ProductController {
     
     @Autowired
     private IProductService productService;
 
+    @Operation(summary = "Get all product", description = "Api to get all product")
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllProduct(){
 
@@ -48,6 +53,7 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
+    @Operation(summary = "Add product", description = "Api to create new product")
     public ResponseEntity<ApiResponse> addProduct(@RequestBody AddProductRequest addProductRequest){
 
         try {
@@ -60,6 +66,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/byId/{productId}")
+    @Operation(summary = "Get product", description = "Api to get product by Id")
     public ResponseEntity<ApiResponse> getProductById(@PathVariable int productId){
         try {
             Product product = productService.getProductById(productId);
@@ -73,6 +80,7 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{productId}")
+    @Operation(summary = "Delete product", description = "Api to delete product by Id")
     public ResponseEntity<ApiResponse> deleteProductById(@PathVariable int productId){
         try {
             productService.deleteProductById(productId);
@@ -85,6 +93,7 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update/{productId}")
+    @Operation(summary = "Update product", description = "Api to update product by Id")
     public ResponseEntity<ApiResponse> updateProductById(@RequestBody UpdateProductRequest updateProductRequest, @PathVariable int productId){
 
         try {

@@ -34,8 +34,22 @@ spring:
             max-file-size: 5MB
             max-request-size: 5MB
 
+open:
+    api:
+        title: "API Document"
+        version: "v1.0.0"
+        description: "Descrip API Service"
+        serverUrl: "http://localhost:8080"
+        serverName: "server-test"
+
+
 # giảm mức log của hibernate
 # logging.level.org.hibernate=error
+# logging:
+#     level:
+#         org:
+#             springframework: 
+#                 security: DEBUG
 
 secret_key: BF7FD11ACE545745B7BA1AF98B6F156D127BC7BB544BAB6A4FD74E4FC7
 

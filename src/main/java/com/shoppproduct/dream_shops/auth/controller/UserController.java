@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.controller;
+package com.shoppproduct.dream_shops.auth.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +26,11 @@ import com.shoppproduct.dream_shops.utils.dto.OrderDTO;
 import com.shoppproduct.dream_shops.utils.request.UpdateUserRequest;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "${api.prefix}/users")
+@Tag(name = "User Controller")
 public class UserController {
 
     @Autowired

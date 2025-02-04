@@ -1,4 +1,4 @@
-package com.shoppproduct.dream_shops.controller;
+package com.shoppproduct.dream_shops.auth.controller;
 
 import java.time.Instant;
 import java.util.Date;
@@ -27,8 +27,11 @@ import com.shoppproduct.dream_shops.exception.ForgotPasswordNotFoundException;
 import com.shoppproduct.dream_shops.exception.UserNotFoundException;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "${api.prefix}/forgotPassword")
+@Tag(name = "ForgotPassword Controller")
 public class ForgotPasswordController {
         
     @Autowired

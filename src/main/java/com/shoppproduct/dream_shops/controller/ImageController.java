@@ -27,8 +27,11 @@ import com.shoppproduct.dream_shops.service.image.IImageService;
 import com.shoppproduct.dream_shops.utils.dto.ImageDTO;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "${api.prefix}/images")
+@Tag(name = "Image Controller")
 public class ImageController {
 
     @Autowired

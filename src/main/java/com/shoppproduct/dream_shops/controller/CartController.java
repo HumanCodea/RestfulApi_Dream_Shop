@@ -17,8 +17,11 @@ import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
 import com.shoppproduct.dream_shops.utils.dto.CartDTO;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "${api.prefix}/carts")
+@Tag(name = "Cart Controller")
 public class CartController {
 
     @Autowired

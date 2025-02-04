@@ -18,8 +18,11 @@ import com.shoppproduct.dream_shops.service.order.IOrderService;
 import com.shoppproduct.dream_shops.utils.dto.OrderDTO;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "${api.prefix}/orders")
+@Tag(name = "Order Controller")
 public class OrderController {
     
     @Autowired

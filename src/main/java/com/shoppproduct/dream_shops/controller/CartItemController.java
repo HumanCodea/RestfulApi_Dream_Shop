@@ -19,9 +19,11 @@ import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 import io.jsonwebtoken.JwtException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping(path = "${api.prefix}/cartItems")
+@Tag(name = "CartItem Controller")
 public class CartItemController {
     
     @Autowired
