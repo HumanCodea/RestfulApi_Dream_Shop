@@ -19,6 +19,7 @@ import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
 import io.jsonwebtoken.JwtException;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -36,6 +37,7 @@ public class CartItemController {
     private IUserService iUserService;
 
     @PostMapping("/addItem")
+    @Operation(summary = "Add category", description = "Api to create new cart item")
     public ResponseEntity<ApiResponse> addItemToCart(@RequestParam int productId, @RequestParam int quantity){
         try {
             User user = iUserService.getAuthenticatedUser();
@@ -50,6 +52,7 @@ public class CartItemController {
     }
 
     @DeleteMapping("/deleteItem")
+    @Operation(summary = "Delete item", description = "Api to delete item from cart")
     public ResponseEntity<ApiResponse> removeItemFromCart(@RequestParam int cartId, @RequestParam int productId){
 
         try {
@@ -62,6 +65,7 @@ public class CartItemController {
     }
 
     @PutMapping("/updateItem")
+    @Operation(summary = "Update item", description = "Api to update item and quantity")
     public ResponseEntity<ApiResponse> updateItemQuantity(@RequestParam int cartId, @RequestParam int productId,
                                                         @RequestParam int quantity){
         try {

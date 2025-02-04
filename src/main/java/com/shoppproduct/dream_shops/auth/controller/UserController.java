@@ -26,6 +26,7 @@ import com.shoppproduct.dream_shops.utils.dto.OrderDTO;
 import com.shoppproduct.dream_shops.utils.request.UpdateUserRequest;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -43,6 +44,7 @@ public class UserController {
     private IOrderService iOrderService;
 
     @GetMapping("/user/{userId}")
+    @Operation(summary = "Get user", description = "Api to get user by id")
     public ResponseEntity<ApiResponse> getUser(@PathVariable Long userId){
         try {
             User user = iUserService.getUserById(userId);
@@ -63,6 +65,7 @@ public class UserController {
     }
 
     @PutMapping("/updateUser/{userId}")
+    @Operation(summary = "Update user", description = "Api to update user by id")
     public ResponseEntity<ApiResponse> updateUser(@RequestBody UpdateUserRequest updateUserRequest,@PathVariable Long userId){
         try {
             User user = iUserService.updateUser(updateUserRequest, userId);
@@ -74,6 +77,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{userId}")
+    @Operation(summary = "Delete user", description = "Api to remove user by id")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long userId){
         try {
             iUserService.deleteUser(userId);

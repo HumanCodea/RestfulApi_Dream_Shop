@@ -21,6 +21,7 @@ import com.shoppproduct.dream_shops.model.Category;
 import com.shoppproduct.dream_shops.service.category.ICategoryService;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -32,6 +33,7 @@ public class CategoryController {
     private ICategoryService categoryService;
     
     @GetMapping("/all")
+    @Operation(summary = "Get category", description = "Api to get all categories")
     public ResponseEntity<ApiResponse> getAllCategories(){
 
         try {
@@ -45,6 +47,7 @@ public class CategoryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
+    @Operation(summary = "Add category", description = "Api to create new category")
     public ResponseEntity<ApiResponse> addCategory(@RequestBody Category category){
 
         try {
@@ -57,6 +60,7 @@ public class CategoryController {
     }
 
     @GetMapping("/category/id/{categoryId}")
+    @Operation(summary = "Get category", description = "Api to get category by id")
     public ResponseEntity<ApiResponse> getCategoryById(@PathVariable int categoryId){
 
         try {
@@ -69,6 +73,7 @@ public class CategoryController {
     }
 
     @GetMapping("/category/name/{nameCategory}")
+    @Operation(summary = "Get category", description = "Api to get category by name")
     public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable String nameCategory){
 
         try {
@@ -82,6 +87,7 @@ public class CategoryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{categoryId}")
+    @Operation(summary = "Delete category", description = "Api to delete category by id")
     public ResponseEntity<ApiResponse> deleteCategoryById(@PathVariable int categoryId){
 
         try {
@@ -95,7 +101,8 @@ public class CategoryController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update/{categoryId}")
-    public ResponseEntity<ApiResponse> deleteCategoryById(@PathVariable int categoryId, @RequestBody Category category){
+    @Operation(summary = "Update category", description = "Api to update category by id")
+    public ResponseEntity<ApiResponse> updateCategoryById(@PathVariable int categoryId, @RequestBody Category category){
 
         try {
             Category category2 = categoryService.updateCategory(category, categoryId);

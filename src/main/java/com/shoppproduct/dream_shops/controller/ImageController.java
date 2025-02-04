@@ -27,6 +27,7 @@ import com.shoppproduct.dream_shops.service.image.IImageService;
 import com.shoppproduct.dream_shops.utils.dto.ImageDTO;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -39,6 +40,7 @@ public class ImageController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload")
+    @Operation(summary = "Save Image", description = "Api to save new images")
     public ResponseEntity<ApiResponse> saveImages(@RequestParam List<MultipartFile> files, @RequestParam int productId){
         try {
             List<ImageDTO> imageDTOs = iImageService.saveImages(files, productId);
@@ -50,6 +52,7 @@ public class ImageController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/image/download/{imageId}")
+    @Operation(summary = "Download Image", description = "Api to download images by id")
     public ResponseEntity<Resource> downloadImage(@PathVariable int imageId) throws SQLException{
         Image image = iImageService.getImageById(imageId);
         ByteArrayResource resource = new ByteArrayResource(image.getImage().getBytes(1, (int) image.getImage().length()));
@@ -60,6 +63,7 @@ public class ImageController {
     
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update/{imageId}")
+    @Operation(summary = "Update image", description = "Api to update images by id")
     public ResponseEntity<ApiResponse> updateImage(@PathVariable int imageId, @RequestBody MultipartFile file){
 
         try {
@@ -77,6 +81,7 @@ public class ImageController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{imageId}")
+    @Operation(summary = "Delete image", description = "Api to delete image by id")
     public ResponseEntity<ApiResponse> deleteImage(@PathVariable int imageId){
 
         try {

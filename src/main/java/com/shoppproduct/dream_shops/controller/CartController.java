@@ -17,6 +17,7 @@ import com.shoppproduct.dream_shops.service.cart.Imp.ICartService;
 import com.shoppproduct.dream_shops.utils.dto.CartDTO;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -28,6 +29,7 @@ public class CartController {
     private ICartService iCartService;
 
     @GetMapping("/cart/{cartId}")
+    @Operation(summary = "Get cart", description = "Api to get cart by id")
     public ResponseEntity<ApiResponse> getCart(@PathVariable int cartId){
 
         try {
@@ -41,6 +43,7 @@ public class CartController {
     }
 
     @DeleteMapping("/clear/{cartId}")
+    @Operation(summary = "Clear cart", description = "Api to remove all item in cart by cart id")
     public ResponseEntity<ApiResponse> clearCart(@PathVariable int cartId){
         try {
             iCartService.clearCart(cartId);
@@ -51,6 +54,7 @@ public class CartController {
     }
 
     @GetMapping("/totalAmount/{cartId}")
+    @Operation(summary = "Get total amount", description = "Api to get total amount by cartId")
     public ResponseEntity<ApiResponse> getTotalAmount(@PathVariable int cartId){
         try {
             BigDecimal totalPrice = iCartService.getTotalPrice(cartId);

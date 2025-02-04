@@ -18,6 +18,7 @@ import com.shoppproduct.dream_shops.service.order.IOrderService;
 import com.shoppproduct.dream_shops.utils.dto.OrderDTO;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -29,6 +30,7 @@ public class OrderController {
     private IOrderService iOrderService;
 
     @PostMapping("/order/{userId}")
+    @Operation(summary = "Add order", description = "Api to create new order")
     public ResponseEntity<ApiResponse> createOrder(@PathVariable Long userId){
 
         try {
@@ -42,6 +44,7 @@ public class OrderController {
     }
 
     @GetMapping("/getOrder/{id}")
+    @Operation(summary = "Get order", description = "Api to get order by id")
     public ResponseEntity<ApiResponse> getOrderById(@PathVariable Long id){
         try {
             OrderDTO orders = iOrderService.getOrder(id);
@@ -52,6 +55,7 @@ public class OrderController {
     }
 
     @GetMapping("/getUserOrder/{userId}")
+    @Operation(summary = "Get order", description = "Api to get order by userId")
     public ResponseEntity<ApiResponse> getUserOrder(@PathVariable Long userId){
         try {
             List<OrderDTO> orders = iOrderService.getUserOrders(userId);

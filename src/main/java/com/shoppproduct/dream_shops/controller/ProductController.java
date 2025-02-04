@@ -106,6 +106,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/byCategoryName/{categoryName}")
+    @Operation(summary = "Get product", description = "Api to get product by category name")
     public ResponseEntity<ApiResponse> getProductsByCategoryName(@PathVariable String categoryName){
 
         try {
@@ -122,6 +123,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/byBrand/{brand}")
+    @Operation(summary = "Get product", description = "Api to get product by brand")
     public ResponseEntity<ApiResponse> getProductsByBrand(@PathVariable String brand){
 
         try {
@@ -138,6 +140,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/byName/{productName}")
+    @Operation(summary = "Get product", description = "Api to get product by product name")
     public ResponseEntity<ApiResponse> getProductsByName(@PathVariable String productName){
 
         try {
@@ -154,6 +157,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/category-and-brand")
+    @Operation(summary = "Get product", description = "Api to get product by category and brand name")
     public ResponseEntity<ApiResponse> getProductsByCategoryAndBrand(@RequestParam String categoryName, @RequestParam String brand){
 
         try {
@@ -170,6 +174,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/brand-and-name")
+    @Operation(summary = "Get product", description = "Api to get product by brand and product name")
     public ResponseEntity<ApiResponse> getProductsByBrandAndName(@RequestParam String productName, @RequestParam String brand){
 
         try {
@@ -186,6 +191,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/countProduct")
+    @Operation(summary = "Count product", description = "Api to count total product in database")
     public ResponseEntity<ApiResponse> countProductsByBrandAndName(@RequestParam String productName, @RequestParam String brand){
 
         try {
@@ -198,6 +204,7 @@ public class ProductController {
     }
 
     @GetMapping("product/pagination")
+    @Operation(summary = "Get product", description = "Api to get product with pagination")
     public ResponseEntity<ApiResponse> getAllProductWithPagination(
                         @RequestParam(defaultValue = Appconstant.PAGE_NUMBER, required = false) Integer pageNumber,
                         @RequestParam(defaultValue = Appconstant.PAGE_SIZE, required = false) Integer pageSize)
@@ -207,6 +214,7 @@ public class ProductController {
     }
 
     @GetMapping("product/paginationAndsorting")
+    @Operation(summary = "Get product", description = "Api to get product with pagination and sorting")
     public ResponseEntity<ApiResponse> getAllProductWithPaginationAndSorting(
                         @RequestParam(defaultValue = Appconstant.PAGE_NUMBER, required = false) Integer pageNumber,
                         @RequestParam(defaultValue = Appconstant.PAGE_SIZE, required = false) Integer pageSize,

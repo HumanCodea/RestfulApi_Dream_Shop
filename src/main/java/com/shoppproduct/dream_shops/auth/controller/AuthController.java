@@ -21,6 +21,7 @@ import com.shoppproduct.dream_shops.auth.utils.respone.AuthRespone;
 import com.shoppproduct.dream_shops.exception.ReTokenExpiredException;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -38,11 +39,13 @@ public class AuthController {
     private RefreshTokenService refreshTokenService;
 
     @PostMapping("/register")
+    @Operation(summary = "Register account", description = "Api to register new account")
     public ResponseEntity<ApiResponse> register(@RequestBody RegisterRequest registerRequest){
         return ResponseEntity.ok(new ApiResponse("Register Successfully!", authService.register(registerRequest)));
     }
     
     @PostMapping("/login")
+    @Operation(summary = "Login account", description = "Api to login account with email and password")
     public ResponseEntity<ApiResponse> login(@RequestBody LoginRequest loginRequest){
         try {
             return ResponseEntity.ok(new ApiResponse("Login Successfully!", authService.login(loginRequest)));
@@ -52,6 +55,7 @@ public class AuthController {
     }
 
     @PostMapping("/refreshToken")
+    @Operation(summary = "Refresh token", description = "Api to refresh token")
     public ResponseEntity<ApiResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest){
 
         try {

@@ -27,6 +27,7 @@ import com.shoppproduct.dream_shops.exception.ForgotPasswordNotFoundException;
 import com.shoppproduct.dream_shops.exception.UserNotFoundException;
 import com.shoppproduct.dream_shops.utils.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -47,6 +48,7 @@ public class ForgotPasswordController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/verifyEmail/{email}")
+    @Operation(summary = "Verify email", description = "Api to verify email and create otp code")
     public ResponseEntity<ApiResponse> verifyEmailHandler(@PathVariable String email){
 
         User user = Optional.ofNullable(userRepository.findByEmail(email))
@@ -75,6 +77,7 @@ public class ForgotPasswordController {
 
 
     @PostMapping("/verifyOtp/{otp}/{email}")
+    @Operation(summary = "Verify otp", description = "Api to otp code from message send to email")
     public ResponseEntity<ApiResponse> verifyOtpHandler(@PathVariable Integer otp, @PathVariable String email){
 
         User user = Optional.ofNullable(userRepository.findByEmail(email))
@@ -92,6 +95,7 @@ public class ForgotPasswordController {
     }
 
     @PostMapping("/changePassword/{email}")
+    @Operation(summary = "Change password", description = "Api to create new password")
     public ResponseEntity<ApiResponse> changePasswordHandler(@PathVariable String email, 
                                                             @RequestBody ChangePasswordRequest changePasswordRequest)
     {
