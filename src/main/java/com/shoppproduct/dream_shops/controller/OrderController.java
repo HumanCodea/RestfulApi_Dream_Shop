@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shoppproduct.dream_shops.exception.InventoryOutException;
 import com.shoppproduct.dream_shops.exception.OrderNotFoundException;
 import com.shoppproduct.dream_shops.exception.UserNotFoundException;
 import com.shoppproduct.dream_shops.model.Orders;
@@ -39,6 +40,8 @@ public class OrderController {
             return ResponseEntity.ok(new ApiResponse("Item order success", orderDTO));
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse("Error Occured!", e.getMessage()));
+        } catch (InventoryOutException ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(ex.getMessage(), null));
         }
 
     }

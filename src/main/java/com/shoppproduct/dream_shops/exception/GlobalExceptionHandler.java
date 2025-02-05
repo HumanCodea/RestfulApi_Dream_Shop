@@ -56,4 +56,9 @@ public class GlobalExceptionHandler {
         return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, "You do not have permission to this action");
     }
     
+    @ExceptionHandler(InventoryOutException.class)
+    public ProblemDetail handleAccessDeniedException(InventoryOutException ex){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
 }
